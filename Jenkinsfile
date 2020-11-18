@@ -1,24 +1,50 @@
 #!groovy
 
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:10'
+        }
+    }
     stages {
-        stage("Checkout") {
+
+        stage('checkout') {
             steps {
                 git "https://github.com/JL-Code/dockerize-vue.git"
             }
         }
-        stage('Build') {
-            agent {
-                docker {
-                    image 'node:10'
-                }
-            }
+        stage('config') {
             steps {
-                sh "node --version"
-                sh "npm --version"
-                sh "npm --registry https://registry.npm.taobao.org install express && npm info express"
-                sh "npm install && npm run build"
+                sh "npm --registry https://registry.npm.taobao.org install express"
+            }
+        }
+        stage('info') {
+            steps {
+                sh "npm info express"
+                sh "node -v"
+                sh "npm -v"
+            }
+        }
+        stage('restore') {
+            steps {
+                sh "npm install "
+            }
+        }
+
+        stage('test') {
+            steps {
+                sh "npm run test:unit"
+            }
+        }
+
+        stage('build') {
+            steps {
+                sh "npm run build"
+            }
+            post {
+                success {
+                    archiveArtifacts artifacts: 'dist/**', fingerprint: true
+                }
             }
         }
 
