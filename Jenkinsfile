@@ -15,12 +15,12 @@ pipeline {
         }
         stage('config') {
             steps {
-                sh "npm --registry https://registry.npm.taobao.org install express"
+                sh "npm config set registry https://registry.npm.taobao.org"
             }
         }
         stage('info') {
             steps {
-                sh "npm info express"
+                sh "npm config get registry"
                 sh "node -v"
                 sh "npm -v"
             }
