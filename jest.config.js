@@ -6,10 +6,10 @@ module.exports = {
     collectCoverage: true,    // 收集代码测试覆盖率（ 开启后测试速度会降低 ）
     reporters: [
         "default",
-        "jest-junit",
+        ["jest-junit", {outputDirectory: "test-report"}],
         ["./node_modules/jest-html-reporter", {
-            "pageTitle": "Test Report",
-            "outputPath": "test-report/index.html"
+            pageTitle: "Test Report",
+            outputPath: "test-report/index.html"
         }]
     ],
     transformIgnorePatterns: ["/node_modules/(?!@babel)"]
