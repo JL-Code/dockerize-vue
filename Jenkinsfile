@@ -35,6 +35,14 @@ pipeline {
             steps {
                 sh "npm run test:unit"
             }
+            post {
+                always {
+                    step([
+                            $class             : 'CoberturaPublisher',
+                            coberturaReportFile: 'coverage/clover.xml'
+                    ])
+                }
+            }
         }
 
         stage('build') {

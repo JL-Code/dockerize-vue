@@ -42,6 +42,9 @@ module.exports = {
     transformIgnorePatterns: ["/node_modules/(?!@babel)"]
 };
 
+Jenkins 
+* 安装 Cobertura 插件
+
 ```
 
 ### Customize configuration
