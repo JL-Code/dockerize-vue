@@ -4,12 +4,14 @@ module.exports = {
     preset: "@vue/cli-plugin-unit-jest",
     verbose: true,
     collectCoverage: true,    // 收集代码测试覆盖率（ 开启后测试速度会降低 ）
-    // reporters: [
-    //     "default",
-    //     ["./node_modules/jest-html-reporter", {
-    //         "pageTitle": "Test Report",
-    //         "outputPath": "test-report/index.html"
-    //     }]
-    // ],
+    reporters: [
+        "default",
+        "jest-junit",
+        ["./node_modules/jest-html-reporter", {
+            "pageTitle": "Test Report",
+            "outputPath": "test-report/index.html"
+        }]
+    ],
     transformIgnorePatterns: ["/node_modules/(?!@babel)"]
-};
+}
+;

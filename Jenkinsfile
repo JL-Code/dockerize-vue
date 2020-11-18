@@ -37,6 +37,18 @@ pipeline {
             }
             post {
                 always {
+
+                    publishHTML target: [
+                            allowMissing         : false,
+                            alwaysLinkToLastBuild: false,
+                            keepAll              : true,
+                            reportDir            : 'test-report',
+                            reportFiles          : 'index.html',
+                            reportName           : 'Test Report'
+                    ]
+
+                    junit 'test-report/*.xml'
+
                     step([
                             $class             : 'CoberturaPublisher',
                             coberturaReportFile: 'coverage/clover.xml'
