@@ -6,6 +6,9 @@ pipeline {
             image 'node:12'
         }
     }
+    environment {
+        HOME = '.'
+    }
     stages {
 
         stage('checkout') {
