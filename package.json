@@ -9,11 +9,11 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "@vue/cli-plugin-unit-jest": "^4.5.9",
     "core-js": "^3.6.5",
     "vue": "^2.6.11"
   },
   "devDependencies": {
+    "@vue/cli-plugin-unit-jest": "^4.5.9",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
@@ -21,7 +21,8 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "jest-html-reporter": "^3.3.0"
   },
   "eslintConfig": {
     "root": true,
