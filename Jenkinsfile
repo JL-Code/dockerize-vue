@@ -85,7 +85,7 @@ pipeline {
                     def dockerNamespace = "cloud"
                     def dockerImage = "cloud-web"
                     def dockerTag = "1.0.0"
-                    def dockerfile = "text.text"
+                    def dockerfile = "Dockerfile.dockerfile"
                     def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
 
                     /**
