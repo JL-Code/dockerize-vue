@@ -72,9 +72,12 @@ pipeline {
 
         stage('release') {
             agent {
-                customWorkspace env.WORKSPACE
+                node {
+                    customWorkspace env.WORKSPACE
+                }
             }
             steps {
+                sh "echo env.WORKSPACE :${env.WORKSPACE}"
                 script {
                     def dockerRegistry = "nexus.highzap.com:8082"
                     def dockerNamespace = "cloud"
@@ -93,8 +96,7 @@ pipeline {
                      * node {*     checkout scm
                      *     def dockerfile = 'Dockerfile.test'
                      *     def customImage = docker.build("my-image:${env.BUILD_ID}", "-f ${dockerfile} ./dockerfiles")
-                     * }
-                     * Builds my-image:${env.BUILD_ID} from the Dockerfile found at ./dockerfiles/Dockerfile.test.
+                     *}* Builds my-image:${env.BUILD_ID} from the Dockerfile found at ./dockerfiles/Dockerfile.test.
                      */
                     def customImage = docker.build(dockerName, "-f ${dockerfile} ./")
 
