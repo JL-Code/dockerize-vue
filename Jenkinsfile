@@ -83,7 +83,7 @@ pipeline {
                 sh "node -v"
                 sh "npm -v"
 
-                script {
+//                script {
 //                    def dockerRegistry = "nexus.highzap.com:8082"
 //                    def dockerNamespace = "cloud"
 //                    def dockerImage = "cloud-web"
@@ -106,7 +106,7 @@ pipeline {
 //                    def customImage = docker.build(dockerName, "-f ${dockerfile} ./")
 
 //                    customImage.push()
-                }
+//                }
 
             }
         }
