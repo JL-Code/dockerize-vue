@@ -31,7 +31,7 @@ describe("HelloWorld.vue", () => {
       propsData: { msg }
     });
     // Then 断言
-    expect(wrapper.text()).toMatch("new message");
+    expect(wrapper.text()).toMatch("1new message");
   });
 
   it("测试用例2", () => {
