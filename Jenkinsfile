@@ -80,13 +80,16 @@ pipeline {
 //            }
             steps {
                 sh "echo env.WORKSPACE :${env.WORKSPACE}"
+                sh "node -v"
+                sh "npm -v"
+
                 script {
-                    def dockerRegistry = "nexus.highzap.com:8082"
-                    def dockerNamespace = "cloud"
-                    def dockerImage = "cloud-web"
-                    def dockerTag = "1.0.0"
-                    def dockerfile = "Dockerfile.dockerfile"
-                    def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
+//                    def dockerRegistry = "nexus.highzap.com:8082"
+//                    def dockerNamespace = "cloud"
+//                    def dockerImage = "cloud-web"
+//                    def dockerTag = "1.0.0"
+//                    def dockerfile = "Dockerfile.dockerfile"
+//                    def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
 
                     /**
                      * It is possible to pass other arguments to docker build by adding them to the second argument
@@ -100,10 +103,11 @@ pipeline {
                      *     def customImage = docker.build("my-image:${env.BUILD_ID}", "-f ${text} ./dockerfiles")
                      *}* Builds my-image:${env.BUILD_ID} from the Dockerfile found at ./dockerfiles/Dockerfile.test.
                      */
-                    def customImage = docker.build(dockerName, "-f ${dockerfile} ./")
+//                    def customImage = docker.build(dockerName, "-f ${dockerfile} ./")
 
-                    customImage.push()
+//                    customImage.push()
                 }
+
             }
         }
 
