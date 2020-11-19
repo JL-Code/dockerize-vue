@@ -16,12 +16,12 @@ pipeline {
                 git "https://github.com/JL-Code/dockerize-vue.git"
             }
         }
-        stage('config') {
-            steps {
-                sh "npm -v"
-                sh "npm config set registry https://registry.npm.taobao.org"
-            }
-        }
+        // stage('config') {
+        //     steps {
+        //         sh "npm -v"
+        //         sh "npm config set registry https://registry.npm.taobao.org"
+        //     }
+        // }
         stage('info') {
             steps {
                 sh "npm config get registry"
