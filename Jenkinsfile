@@ -52,7 +52,8 @@ pipeline {
                             reportFiles          : 'index.html',
                             reportName           : 'Coverage Report'
                     ]
-                    junit 'test-port/*.xml'
+
+                    junit 'test-report/*.xml'
                 }
             }
         }
