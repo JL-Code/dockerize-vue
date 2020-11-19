@@ -71,12 +71,13 @@ pipeline {
         }
 
         stage('release') {
-            agent {
-                node {
-                    label 'master'
-                    customWorkspace env.WORKSPACE
-                }
-            }
+            agent any
+//            agent {
+//                node {
+//                    label 'master'
+//                    customWorkspace env.WORKSPACE
+//                }
+//            }
             steps {
                 sh "echo env.WORKSPACE :${env.WORKSPACE}"
                 script {
