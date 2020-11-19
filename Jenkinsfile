@@ -4,6 +4,7 @@ pipeline {
     agent {
         docker {
             image 'node:12'
+            args '-v npm_cache:/root/.npm'
         }
     }
     environment {
@@ -16,12 +17,11 @@ pipeline {
                 git "https://github.com/JL-Code/dockerize-vue.git"
             }
         }
-        // stage('config') {
-        //     steps {
-        //         sh "npm -v"
-        //         sh "npm config set registry https://registry.npm.taobao.org"
-        //     }
-        // }
+         stage('config') {
+             steps {
+                 sh "npm config set registry https://registry.npm.taobao.org"
+             }
+         }
         stage('info') {
             steps {
                 sh "npm config get registry"
@@ -41,22 +41,14 @@ pipeline {
             }
             post {
                 always {
-
                     publishHTML target: [
                             allowMissing         : false,
                             alwaysLinkToLastBuild: false,
                             keepAll              : true,
-                            reportDir            : 'test-report',
+                            reportDir            : 'coverage/lcov-report',
                             reportFiles          : 'index.html',
-                            reportName           : 'Test Report'
+                            reportName           : 'Coverage Report'
                     ]
-
-                    junit 'test-report/*.xml'
-
-                    step([
-                            $class             : 'CoberturaPublisher',
-                            coberturaReportFile: 'coverage/clover.xml'
-                    ])
                 }
             }
         }
