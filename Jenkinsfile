@@ -71,7 +71,7 @@ pipeline {
         }
 
         stage('release') {
-            agent node
+            agent any
             steps {
                 script {
                     def dockerRegistry = "nexus.highzap.com:8082"
