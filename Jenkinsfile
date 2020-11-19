@@ -73,6 +73,7 @@ pipeline {
         stage('release') {
             agent {
                 node {
+                    label 'master'
                     customWorkspace env.WORKSPACE
                 }
             }
