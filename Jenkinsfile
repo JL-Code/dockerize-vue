@@ -68,16 +68,19 @@ pipeline {
         }
 
         stage('release') {
+            steps {
+                script {
+                    def dockerRegistry = "nexus.highzap.com:8082"
+                    def dockerNamespace = "cloud"
+                    def dockerImage = "cloud-web"
+                    def dockerTag = "1.0.0"
 
-            def dockerRegistry = "nexus.highzap.com:8082"
-            def dockerNamespace = "cloud"
-            def dockerImage = "cloud-web"
-            def dockerTag = "1.0.0"
+                    def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
+                    def customImage = docker.build(dockerName)
 
-            def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
-            def customImage = docker.build(dockerName)
-
-            customImage.push()
+                    customImage.push()
+                }
+            }
         }
 
     }
