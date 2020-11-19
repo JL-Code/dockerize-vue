@@ -19,7 +19,7 @@ pipeline {
         stage('config') {
             steps {
                 sh "npm -v"
-//                sh "npm config set registry https://registry.npm.taobao.org"
+                sh "npm config set registry https://registry.npm.taobao.org"
             }
         }
         stage('info') {
