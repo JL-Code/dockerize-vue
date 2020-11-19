@@ -117,14 +117,16 @@ pipeline {
 
 
 node {
+    stage('release') {
+        def dockerRegistry = "nexus.highzap.com:8082"
+        def dockerNamespace = "cloud"
+        def dockerImage = "cloud-web"
+        def dockerTag = "1.0.0"
+        def dockerfile = "Dockerfile.dockerfile"
+        def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
+        // 语法： docker.build([imageName],[args])
+        def customImage = docker.build(dockerName, "-f ${dockerfile} .")
 
-    def dockerRegistry = "nexus.highzap.com:8082"
-    def dockerNamespace = "cloud"
-    def dockerImage = "cloud-web"
-    def dockerTag = "1.0.0"
-    def dockerfile = "Dockerfile.dockerfile"
-    def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
-    def customImage = docker.build(dockerName, "-f ${dockerfile} ./")
-
-    customImage.push()
+        customImage.push()
+    }
 }
