@@ -52,6 +52,7 @@ pipeline {
                             reportFiles          : 'index.html',
                             reportName           : 'Coverage Report'
                     ]
+                    junit 'test-port/*.xml'
                 }
             }
         }
@@ -74,9 +75,10 @@ pipeline {
                     def dockerNamespace = "cloud"
                     def dockerImage = "cloud-web"
                     def dockerTag = "1.0.0"
+                    def dockerfile = "Dockerfile.dockerfile"
 
                     def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
-                    def customImage = docker.build(dockerName)
+                    def customImage = docker.build(dockerName,"-f ${dockerfile}")
 
                     customImage.push()
                 }
