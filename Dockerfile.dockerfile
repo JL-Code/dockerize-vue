@@ -1,8 +1,14 @@
-FROM nginx:stable-alpine
+FROM nginx:1.19.4-alpine
+
+RUN echo 'workdir before:' && pwd && ls -al
 
 WORKDIR /app
 
-COPY /dist .
+RUN echo 'workdir after:' && pwd && ls -al
+
+COPY /dist ./
+
+RUN echo 'copy after:' && pwd && ls -al
 
 EXPOSE 80
 

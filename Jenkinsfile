@@ -70,47 +70,61 @@ pipeline {
             }
         }
 
-        stage('release') {
-            agent any
-//            agent {
-//                node {
-//                    label 'master'
-//                    customWorkspace env.WORKSPACE
-//                }
+//        stage('release') {
+//            agent any
+////            agent {
+////                node {
+////                    label 'master'
+////                    customWorkspace env.WORKSPACE
+////                }
+////            }
+//            steps {
+//                echo "hello agent 2"
+//                sh "echo env.WORKSPACE :${env.WORKSPACE}"
+//                sh "node -v"
+//                sh "npm -v"
+//
+////                script {
+////                    def dockerRegistry = "nexus.highzap.com:8082"
+////                    def dockerNamespace = "cloud"
+////                    def dockerImage = "cloud-web"
+////                    def dockerTag = "1.0.0"
+////                    def dockerfile = "Dockerfile.dockerfile"
+////                    def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
+//
+//                    /**
+//                     * It is possible to pass other arguments to docker build by adding them to the second argument
+//                     * of the build() method. When passing arguments this way, the last value in the that string
+//                     * must be the path to the docker file and should end with the folder to use as the build context)
+//                     *
+//                     * This example overrides the default Dockerfile by passing the -f flag:
+//                     *
+//                     * node {*     checkout scm
+//                     *     def text = 'Dockerfile.test'
+//                     *     def customImage = docker.build("my-image:${env.BUILD_ID}", "-f ${text} ./dockerfiles")
+//                     *}* Builds my-image:${env.BUILD_ID} from the Dockerfile found at ./dockerfiles/Dockerfile.test.
+//                     */
+////                    def customImage = docker.build(dockerName, "-f ${dockerfile} ./")
+//
+////                    customImage.push()
+////                }
+//
 //            }
-            steps {
-                echo "hello agent 2"
-                sh "echo env.WORKSPACE :${env.WORKSPACE}"
-                sh "node -v"
-                sh "npm -v"
-
-//                script {
-//                    def dockerRegistry = "nexus.highzap.com:8082"
-//                    def dockerNamespace = "cloud"
-//                    def dockerImage = "cloud-web"
-//                    def dockerTag = "1.0.0"
-//                    def dockerfile = "Dockerfile.dockerfile"
-//                    def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
-
-                    /**
-                     * It is possible to pass other arguments to docker build by adding them to the second argument
-                     * of the build() method. When passing arguments this way, the last value in the that string
-                     * must be the path to the docker file and should end with the folder to use as the build context)
-                     *
-                     * This example overrides the default Dockerfile by passing the -f flag:
-                     *
-                     * node {*     checkout scm
-                     *     def text = 'Dockerfile.test'
-                     *     def customImage = docker.build("my-image:${env.BUILD_ID}", "-f ${text} ./dockerfiles")
-                     *}* Builds my-image:${env.BUILD_ID} from the Dockerfile found at ./dockerfiles/Dockerfile.test.
-                     */
-//                    def customImage = docker.build(dockerName, "-f ${dockerfile} ./")
-
-//                    customImage.push()
-//                }
-
-            }
-        }
+//        }
 
     }
+}
+
+
+node {
+
+    def dockerRegistry = "nexus.highzap.com:8082"
+    def dockerNamespace = "cloud"
+    def dockerImage = "cloud-web"
+    def dockerTag = "1.0.0"
+    def dockerfile = "Dockerfile.dockerfile"
+    def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
+    def customImage = docker.build(dockerName, "-f ${dockerfile} ./")
+
+    customImage.push()
 }
