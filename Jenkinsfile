@@ -44,6 +44,7 @@ pipeline {
             }
             post {
                 always {
+                    // 发送代码覆盖率 html 文件
                     publishHTML target: [
                             allowMissing         : false,
                             alwaysLinkToLastBuild: false,
@@ -52,7 +53,7 @@ pipeline {
                             reportFiles          : 'index.html',
                             reportName           : 'Coverage Report'
                     ]
-
+                    // 归档测试记录
                     junit 'test-report/*.xml'
                 }
             }
@@ -70,6 +71,7 @@ pipeline {
         }
 
         stage('release') {
+            agent node
             steps {
                 script {
                     def dockerRegistry = "nexus.highzap.com:8082"
@@ -79,7 +81,7 @@ pipeline {
                     def dockerfile = "Dockerfile.dockerfile"
 
                     def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
-                    def customImage = docker.build(dockerName,"-f ${dockerfile}")
+                    def customImage = docker.build(dockerName, "-f ${dockerfile}")
 
                     customImage.push()
                 }
