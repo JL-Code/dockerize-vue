@@ -84,7 +84,7 @@ pipeline {
                     def dockerNamespace = "cloud"
                     def dockerImage = "cloud-web"
                     def dockerTag = "1.0.0"
-                    def dockerfile = "Dockerfile1.dockerfile.dockerfile"
+                    def dockerfile = "text.text"
                     def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
 
                     /**
@@ -95,8 +95,8 @@ pipeline {
                      * This example overrides the default Dockerfile by passing the -f flag:
                      *
                      * node {*     checkout scm
-                     *     def dockerfile = 'Dockerfile.test'
-                     *     def customImage = docker.build("my-image:${env.BUILD_ID}", "-f ${dockerfile} ./dockerfiles")
+                     *     def text = 'Dockerfile.test'
+                     *     def customImage = docker.build("my-image:${env.BUILD_ID}", "-f ${text} ./dockerfiles")
                      *}* Builds my-image:${env.BUILD_ID} from the Dockerfile found at ./dockerfiles/Dockerfile.test.
                      */
                     def customImage = docker.build(dockerName, "-f ${dockerfile} ./")
