@@ -6,7 +6,7 @@ module.exports = {
     collectCoverage: true,    // 收集代码测试覆盖率（ 开启后测试速度会降低 ）
     reporters: [
         "default",
-        // ["jest-junit", {outputDirectory: "test-report"}],
+        ["jest-junit", {outputDirectory: "test-report"}],
         ["./node_modules/jest-html-reporter", {
             pageTitle: "Test Report",
             outputPath: "test-report/index.html"

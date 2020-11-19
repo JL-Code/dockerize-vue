@@ -1,5 +1,6 @@
 #!groovy
 
+// Pipeline 如何支撑参数化构建？
 pipeline {
     agent {
         docker {
@@ -7,9 +8,11 @@ pipeline {
             args '-v npm_cache:/root/.npm'
         }
     }
+
     environment {
         HOME = '.'
     }
+
     stages {
 
         stage('checkout') {
@@ -17,11 +20,11 @@ pipeline {
                 git "https://github.com/JL-Code/dockerize-vue.git"
             }
         }
-         stage('config') {
-             steps {
-                 sh "npm config set registry https://registry.npm.taobao.org"
-             }
-         }
+        stage('config') {
+            steps {
+                sh "npm config set registry https://registry.npm.taobao.org"
+            }
+        }
         stage('info') {
             steps {
                 sh "npm config get registry"
@@ -62,6 +65,19 @@ pipeline {
                     archiveArtifacts artifacts: 'dist/**', fingerprint: true
                 }
             }
+        }
+
+        stage('release') {
+
+            def dockerRegistry = "nexus.highzap.com:8082"
+            def dockerNamespace = "cloud"
+            def dockerImage = "cloud-web"
+            def dockerTag = "1.0.0"
+
+            def dockerName = "${dockerRegistry}/${dockerNamespace}/${dockerImage}:${dockerTag}"
+            def customImage = docker.build(dockerName)
+
+            customImage.push()
         }
 
     }
