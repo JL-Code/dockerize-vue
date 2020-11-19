@@ -11,6 +11,6 @@ describe("LogoComponent", () => {
       }
     });
     // 期望
-    expect(wrapper.find("img").attributes().src).toBe("/img/logo@2x2.png");
+    expect(wrapper.find("img").attributes().src).toBe(logo);
   });
 });
