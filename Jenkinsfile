@@ -79,6 +79,7 @@ pipeline {
 //                }
 //            }
             steps {
+                echo "hello agent 2"
                 sh "echo env.WORKSPACE :${env.WORKSPACE}"
                 sh "node -v"
                 sh "npm -v"
