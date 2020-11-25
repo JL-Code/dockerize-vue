@@ -7,6 +7,7 @@ WORKDIR /app
 RUN echo 'workdir after:' && pwd && ls -al
 
 COPY /dist ./
+COPY /nginx.conf /etc/nginx/nginx.conf
 
 RUN echo 'copy after:' && pwd && ls -al
 
